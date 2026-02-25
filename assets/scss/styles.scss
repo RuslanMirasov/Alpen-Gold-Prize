@@ -1,0 +1,16 @@
+:root {
+  --font: 'drukwide', sans-serif;
+
+  --white: #ffffff;
+  --black: #000000;
+  --brown: #7e3d23;
+  --red: #e30613;
+  --red-bg: #c32822;
+}
+
+@import 'reset';
+@import 'fonts';
+@import 'tiography';
+@import 'buttons';
+@import 'header';
+@import 'footer';
