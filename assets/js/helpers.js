@@ -1,111 +1,67 @@
-export const throttle = (func, limit) => {
-  let lastCall = 0;
-  return function (...args) {
-    const now = Date.now();
-    if (now - lastCall >= limit) {
-      lastCall = now;
-      func.apply(this, args);
-    }
-  };
-};
+export const hidePreloader = () => {
+  const preloader = document.querySelector('.preloader');
 
-export const debounce = (func, delay) => {
-  let timeoutId;
-  return function (...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
-  };
-};
+  if (!preloader) return;
 
-export const fixHeaderOnScroll = () => {
-  const header = document.querySelector('.header');
-  if (!header) return;
-
-  let isFixed = false;
-
-  const onScroll = () => {
-    const shouldBeFixed = window.scrollY > 0;
-
-    if (shouldBeFixed !== isFixed) {
-      header.classList.toggle('fix', shouldBeFixed);
-      isFixed = shouldBeFixed;
-    }
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-};
-
-export const initNavigationMenu = () => {
-  const burger = document.querySelector('.burger');
-  const menu = document.querySelector('.navigation ');
-  const menuLinks = document.querySelectorAll('.menu__link');
-
-  const toggleMenu = () => {
-    burger.classList.toggle('open');
-    menu.classList.toggle('open');
-  };
-
-  if (burger) burger.addEventListener('click', toggleMenu);
-  menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
-};
-
-export const applyIsMobilClass = () => {
-  const check = () => {
-    const isIOS = /Mac|iPhone|iPad|iPod/.test(navigator.platform) || /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
-    const isTouchDevice = matchMedia('(hover: none)').matches && matchMedia('(pointer: coarse)').matches;
-    const isSmallScreen = window.innerWidth < 1280;
-    const shouldApply = isIOS || (isTouchDevice && isSmallScreen);
-
-    document.body.classList.toggle('is-mobil', shouldApply);
-  };
-
-  check();
-
-  window.addEventListener('resize', check);
-  window.addEventListener('orientationchange', check);
-};
-
-export const initCopyClipboard = () => {
-  const elements = document.querySelectorAll('[data-copy-clipbord]');
-
-  if (!elements.length) return;
-
-  elements.forEach(el => {
-    el.addEventListener('click', async () => {
-      const text = el.innerText.trim();
-      if (!text) return;
-
-      try {
-        await navigator.clipboard.writeText(text);
-        showCopyNotification();
-      } catch (err) {
-        console.warn('Ошибка копирования:', err);
-      }
-    });
-  });
-};
-
-function showCopyNotification() {
-  const notification = document.createElement('div');
-  notification.textContent = 'Скопировано в буфер обмена';
-  notification.classList.add('notify');
-
-  document.body.appendChild(notification);
-
-  requestAnimationFrame(() => {
-    notification.style.opacity = '1';
-    notification.style.transform = 'translate(-50%, 0%)';
-  });
+  preloader.classList.add('hidden');
 
   setTimeout(() => {
-    notification.style.opacity = '0';
-    notification.style.transform = 'translate(-50%, 150%)';
+    document.body.classList.add('loaded');
+  }, 300);
 
-    setTimeout(() => {
-      notification.remove();
-    }, 300);
-  }, 2000);
-}
+  setTimeout(() => {
+    preloader.remove();
+  }, 1000);
+};
+
+export const initRandomPresent = () => {
+  const btn = document.querySelector('[data-present]');
+
+  if (!btn) return;
+
+  const falderUrl = btn.getAttribute('href');
+  const presentNumber = Math.floor(Math.random() * 5) + 1;
+  const newHref = `${falderUrl}/${presentNumber}.webp`;
+
+  btn.setAttribute('href', newHref);
+};
+
+export const initDateTimer = (start, finish) => {
+  const body = document.body;
+
+  const parseDate = str => {
+    const [datePart, timePart] = str.split(' ');
+    const [day, month, year] = datePart.split('.').map(Number);
+    const [hours, minutes] = timePart.split(':').map(Number);
+
+    return new Date(year, month - 1, day, hours, minutes, 0);
+  };
+
+  const startDate = parseDate(start);
+  const finishDate = parseDate(finish);
+
+  if (isNaN(startDate) || isNaN(finishDate)) {
+    console.warn('Invalid date format');
+    return;
+  }
+
+  const interval = setInterval(() => {
+    const now = new Date();
+
+    if (now < startDate) {
+      return;
+    }
+
+    if (now >= startDate && now < finishDate) {
+      if (body.dataset.state !== 'start') {
+        body.dataset.state = 'start';
+      }
+      return;
+    }
+
+    if (now >= finishDate) {
+      body.dataset.state = 'finish';
+      clearInterval(interval);
+    }
+  }, 1000);
+};
