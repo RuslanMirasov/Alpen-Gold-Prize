@@ -71,12 +71,37 @@
   position: relative;
   width: 90%;
   max-width: 410px;
-  z-index: 4;
+  z-index: 2;
   @media (max-width: 374px) {
     margin-top: -22px;
   }
   @media (max-height: 759px) {
     max-width: 315px;
     margin-top: -22px;
+  }
+}
+
+.hero-image-left {
+  display: block;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  z-index: 3;
+  width: 50px;
+  @media (max-height: 759px) and (max-width: 374px) {
+    top: 62%;
+    width: 40px;
+  }
+}
+
+.hero-image-right {
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  z-index: 1;
+  width: 95px;
+  @media (max-height: 759px) and (max-width: 374px) {
+    top: 60%;
   }
 }
