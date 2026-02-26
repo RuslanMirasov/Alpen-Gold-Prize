@@ -14,14 +14,14 @@ export const hidePreloader = () => {
   }, 1000);
 };
 
-export const initRandomPresent = () => {
+export const initRandomPresent = (format = 'webp') => {
   const btn = document.querySelector('[data-present]');
 
   if (!btn) return;
 
   const falderUrl = btn.getAttribute('href');
   const presentNumber = Math.floor(Math.random() * 5) + 1;
-  const newHref = `${falderUrl}/${presentNumber}.webp`;
+  const newHref = `${falderUrl}/${presentNumber}.${format}`;
 
   btn.setAttribute('href', newHref);
 };
