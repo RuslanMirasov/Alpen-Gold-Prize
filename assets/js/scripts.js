@@ -1,5 +1,5 @@
-const START_DATE = '25.02.2026 00:00';
-const FINISH_DATE = '25.03.2026 23:59';
+const START_DATE = '26.02.2026 09:11';
+const FINISH_DATE = '26.02.2026 09:12';
 
 import { hidePreloader, initRandomPresent, initDateTimer } from './helpers.js';
 
