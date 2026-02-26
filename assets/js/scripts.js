@@ -1,6 +1,6 @@
-const START_DATE = '26.02.2026 09:11';
-const FINISH_DATE = '26.02.2026 09:12';
-const PRESENTS_FORMAT = 'webp';
+const START_DATE = '26.02.2026 09:11'; // Дата и время начала акции
+const FINISH_DATE = '26.02.2026 09:12'; // Дата и время окончания акции
+const PRESENTS_FORMAT = 'webp'; // Формат изображений подарков (мкмов)
 
 import { hidePreloader, initRandomPresent, initDateTimer } from './helpers.js';
 
