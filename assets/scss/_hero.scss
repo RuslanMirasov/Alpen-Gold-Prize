@@ -53,6 +53,9 @@
   max-width: 370px;
   @media (max-height: 759px) {
     max-width: 286px;
+    &.finish {
+      max-width: 314px;
+    }
   }
 }
 

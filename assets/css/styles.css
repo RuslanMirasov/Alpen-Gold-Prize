@@ -333,6 +333,9 @@ button:disabled {
   .hero-image-title {
     max-width: 286px;
   }
+  .hero-image-title.finish {
+    max-width: 314px;
+  }
 }
 
 .body[data-state=pending] .hero-image-title.start,

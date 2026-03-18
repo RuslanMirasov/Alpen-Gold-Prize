@@ -14,13 +14,13 @@ export const hidePreloader = () => {
   }, 1000);
 };
 
-export const initRandomPresent = (format = 'webp') => {
+export const initRandomPresent = (format = 'jpg') => {
   const btn = document.querySelector('[data-present]');
 
   if (!btn) return;
 
   const falderUrl = btn.getAttribute('href');
-  const presentNumber = Math.floor(Math.random() * 5) + 1;
+  const presentNumber = Math.floor(Math.random() * 8) + 1;
   const newHref = `${falderUrl}/${presentNumber}.${format}`;
 
   btn.setAttribute('href', newHref);
